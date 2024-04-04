@@ -1,0 +1,18 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - aws:
+          accessKey: "AKIAVESXUGEBQENS2PHI"
+          description: "AWS Credentials"
+          id: "aws-credentials"
+          secretKey: "{AQAAABAAAAAwQ32LeVX+yum4dov2bhUYcI7ypkET74bPXd/TZPkNpMgdJ0lcwQKuTtr+c2eb7ugc4y2ldv0dXkKeUd0l2gVbig==}"
+      - basicSSHUserPrivateKey:
+          description: "KeyPair"
+          id: "sshKey"
+          privateKeySource:
+            directEntry:
+              privateKey: "{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}"
+          scope: GLOBAL
+          username: "ec2-user"
+

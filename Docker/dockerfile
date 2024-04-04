@@ -1,0 +1,29 @@
+# Use the Jenkins base image
+FROM jenkins/jenkins:latest
+
+# Copy additional Jenkins plugins
+COPY plugins_extra.txt /usr/share/jenkins/ref/plugins_extra.txt
+
+# Set environment variables
+ENV http_proxy ${http_proxy:-}
+ENV https_proxy ${https_proxy:-}
+ENV no_proxy ${no_proxy:-}
+ARG JAVA_PROXY
+ENV JAVA_PROXY ${JAVA_PROXY:-}
+ARG JAVA_OPTS
+
+# Configure Jenkins
+ENV JAVA_OPTS "-Djenkins.CLI.disabled=true -Djenkins.install.runSetupWizard=false ${JAVA_PROXY:-} -Dorg.apache.commons.jelly.tags.fmt.timeZone=Europe/Stockholm ${JAVA_PROXY:-}"
+
+# Install additional Jenkins plugins
+RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins_extra.txt
+
+# Copy init groovy files into Jenkins configuration directory
+COPY init.groovy.d/ /usr/share/jenkins/ref/init.groovy.d/
+
+# Copy Jenkins Configuration as Code (JCasC) YAML file
+COPY jenkins-casc.yml /usr/share/jenkins/ref/jenkins-casc.yml
+
+# Set the location of JCasC configuration file
+ENV CASC_JENKINS_CONFIG /usr/share/jenkins/ref/jenkins-casc.yml
+
